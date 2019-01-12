@@ -1,7 +1,14 @@
 package com.yst.mall.model;
 
-public class SysUserRole {
-    private String id;
+import java.io.Serializable;
+
+public class SysUserRole  implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4698766396534752722L;
+
+	private String id;
 
     private String userId;
 

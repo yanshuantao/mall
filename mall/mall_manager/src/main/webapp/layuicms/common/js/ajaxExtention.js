@@ -47,6 +47,7 @@ layui.define(['jquery','layer','$tool'],function(exports){
                         return ;
                     }else if(xhr.status === 404){
                     	debugger
+
                         window.location.href = $tool.getResUrl()+"layuicms/page/system/404.html";
                         return ;
                     }
@@ -54,8 +55,8 @@ layui.define(['jquery','layer','$tool'],function(exports){
                 },
                 //成功返回拦截错误码非'0000'的情况
                 success: function (data, textStatus) {
+                	debugger
                     if( '0000' !== data.code){//异常的统一处理
-                    	debugger
                         layer.msg(data.msg);
                         return;
                     }

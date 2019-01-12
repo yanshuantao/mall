@@ -378,32 +378,6 @@
         limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
     </select>
    
-    <!--oracle 版本
-    <select id="getAll" resultMap="ExtendResultMap" parameterType="map">
-        select a.* from(
-        select b.*,rownum row_num
-        from( select * from (
-        select * from SYS_MENU_TEST t
-        where 1=1
-        <if test="parentMenuId !=null and parentMenuId != ''">
-            and t.parent_id = #{parentMenuId,jdbcType=VARCHAR}
-        </if>
-        <if test="menuName !=null and menuName != ''">
-            and (
-            t.TITLE LIKE (concat('%',concat(#{menuName,jdbcType=VARCHAR},'%')))
-            AND t.title >' '
-            )
-        </if>
-        <if test="menuCode !=null and menuCode != ''">
-            and t.CODE = #{menuCode,jdbcType=VARCHAR}
-        </if>
-        )tt left join (select id,title as parent_Menu_Name,code as parent_menu_code from Sys_menu_test) p on
-        tt.parent_id = p.id
-        order by tt.update_time desc, tt.id desc
-        ) b
-        where rownum &lt; #{end,jdbcType=DECIMAL}
-        )a where row_num &gt; #{start,jdbcType=DECIMAL}
-    </select>-->
     <select id="countGetAll" resultType="Integer" parameterType="map">
         select count(1)
         from SYS_MENU t
@@ -443,5 +417,10 @@
        select * from sys_menu t
           where t.request_url = #{requestUrl,jdbcType=VARCHAR}
     </select>
-  
+  <select id="getFirstClassMenus" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from SYS_MENU t
+        where t.PARENT_ID IS NULL
+    </select>
 </mapper>

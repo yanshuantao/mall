@@ -19,6 +19,7 @@ import com.yst.mall.common.bean.SysUserResponse;
 import com.yst.mall.common.bean.UserAddRequest;
 import com.yst.mall.common.bean.UserUpdateRequest;
 import com.yst.mall.common.constant.OperType;
+import com.yst.mall.common.data.ResultData;
 import com.yst.mall.common.response.IResult;
 import com.yst.mall.common.response.PageResultBean;
 import com.yst.mall.common.response.ResultBean;
@@ -44,9 +45,9 @@ public class SysUserController {
      * */
     @RequestMapping(value = "/userList.do",method = RequestMethod.POST)
     @ResponseBody
-    public IResult getUserList(String page, String limit, String loginName, String realName, String status){
+    public ResultData getUserList(String page, String limit, String loginName, String realName, String status){
         //返回json至前端的均返回ResultBean或者PageResultBean
-        return new PageResultBean<Collection<SysUser>>(sysUserServiceImpl.getAll(page,limit,loginName,realName,status),sysUserServiceImpl.countGetAll(loginName,realName,status));
+        return new ResultData<Collection<SysUser>>(sysUserServiceImpl.getAll(page,limit,loginName,realName,status),sysUserServiceImpl.countGetAll(loginName,realName,status));
     }
 
 

@@ -1,9 +1,15 @@
 package com.yst.mall.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class SysRole {
-    private String id;
+public class SysRole implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 2697431564488668626L;
+
+	private String id;
 
     private String roleName;
 

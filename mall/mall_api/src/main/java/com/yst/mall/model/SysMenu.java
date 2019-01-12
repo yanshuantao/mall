@@ -1,9 +1,15 @@
 package com.yst.mall.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class SysMenu {
-    private String id;
+public class SysMenu implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -6384574558376371201L;
+
+	private String id;
 
     private String title;
 

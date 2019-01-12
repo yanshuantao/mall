@@ -1,11 +1,17 @@
 package com.yst.mall.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class SysAccessPermissionExample {
-    protected String orderByClause;
+public class SysAccessPermissionExample implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -3125307139803056165L;
+
+	protected String orderByClause;
 
     protected boolean distinct;
 
@@ -64,8 +70,12 @@ public class SysAccessPermissionExample {
         distinct = false;
     }
 
-    protected abstract static class GeneratedCriteria {
-        protected List<Criterion> criteria;
+    protected abstract static class GeneratedCriteria  implements Serializable{
+        /**
+		 * 
+		 */
+		private static final long serialVersionUID = -8615561282963662531L;
+		protected List<Criterion> criteria;
 
         protected GeneratedCriteria() {
             super();
@@ -696,15 +706,25 @@ public class SysAccessPermissionExample {
         }
     }
 
-    public static class Criteria extends GeneratedCriteria {
+    public static class Criteria extends GeneratedCriteria  implements Serializable{
 
-        protected Criteria() {
+        /**
+		 * 
+		 */
+		private static final long serialVersionUID = -8891985482958011431L;
+
+		protected Criteria() {
             super();
         }
     }
 
-    public static class Criterion {
-        private String condition;
+    public static class Criterion  implements Serializable{
+        /**
+		 * 
+		 */
+		private static final long serialVersionUID = -7854472860595145082L;
+
+		private String condition;
 
         private Object value;
 

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yst.mall.common.annotation.BizOperLog;
 import com.yst.mall.common.constant.OperType;
+import com.yst.mall.common.data.ResultData;
 import com.yst.mall.common.response.IResult;
 import com.yst.mall.common.response.PageResultBean;
 import com.yst.mall.common.response.ResultBean;
@@ -38,9 +39,10 @@ public class SysRoleController {
     @RequestMapping(value = "/roleList.do",method = RequestMethod.POST)
     @ResponseBody
     //@BizOperLog(operType = OperType.Query,memo = "获取所有角色列表")
-    public IResult getRoleList(String page,String limit,String roleName,String isSuper){
+    public ResultData<Collection<SysRole>> getRoleList(String page,String limit,String roleName,String isSuper){
         //返回json至前端的均返回ResultBean或者PageResultBean
-        return new PageResultBean<Collection<SysRole>>(sysRoleServiceImpl.getAll(page,limit,roleName,isSuper),sysRoleServiceImpl.countGetAll(roleName,isSuper));
+    	ResultData<Collection<SysRole>> re=new ResultData<Collection<SysRole>>(sysRoleServiceImpl.getAll(page,limit,roleName,isSuper),sysRoleServiceImpl.countGetAll(roleName,isSuper));
+        return re;
     }
 
     /**

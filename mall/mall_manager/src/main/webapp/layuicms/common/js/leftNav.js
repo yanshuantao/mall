@@ -4,7 +4,6 @@
 function navBar(result){
 	var strData = result.data;
 	var data;
-	debugger
 	if(typeof(strData) == "string"){
 		var data = JSON.parse(strData); //部分用户解析出来的是字符串，转换一下
 	}else{

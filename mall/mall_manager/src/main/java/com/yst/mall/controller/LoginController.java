@@ -1,6 +1,7 @@
 package com.yst.mall.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -9,6 +10,7 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yst.mall.common.data.ResultData;
+import com.yst.mall.common.response.IResult;
+import com.yst.mall.common.response.ResultBean;
 import com.yst.mall.model.SysUser;
 import com.yst.mall.service.SysUserService;
 
@@ -29,11 +33,6 @@ public class LoginController {
 	@ResponseBody
 	public ResultData<SysUser> login(@RequestParam(value="name") String userName,
 			@RequestParam(value="pwd") String pwd,HttpServletRequest request){
-		/*SysUserExample example=new SysUserExample();
-		Criteria criteria = example.createCriteria();
-		criteria.andUnameEqualTo(userName);
-		criteria.andPwdEqualTo(pwd);
-		ResultData<SysUser> result = sysUserService.loginDo(example);*/
 		ResultData<SysUser> result =new ResultData<SysUser>();
 		//当前用户
         Subject currentUser = SecurityUtils.getSubject();
@@ -62,20 +61,40 @@ public class LoginController {
         	result.setCode(ResultData.BIZ_FAIL);
         	result.setMsg("认证异常");
         }
-//		request.setAttribute("userInfo", result.getBean());
+        if(currentUser.isAuthenticated()){
+        	request.getSession().setAttribute("sysUser", userName);
+        }
 		return result;
 	}
-	@RequestMapping(value = "/logout",method = RequestMethod.POST)
-	@ResponseBody
-	public ResultData logout(HttpServletRequest request){
-		request.removeAttribute("userInfo");
-		ResultData result = new ResultData();
-		result.setCode(ResultData.SUCCESS);
-		return result;
-	}
-	@RequestMapping("/")
-	public String index(){
-		return "login";
-	}
+	 /**
+     * 登出
+     * */
+    @RequestMapping(value = "/logout.do", method = RequestMethod.POST)
+    @ResponseBody
+    public IResult logout(HttpServletRequest request){
+    	request.getSession().removeAttribute("sysUser");
+    	ResultBean result=new ResultBean();
+        return result;
+    }
 
+    /**
+     * 未授权
+     * */
+    @RequestMapping(value = "/401", method = RequestMethod.GET)
+    @ResponseBody
+    public IResult unauthorization(HttpServletResponse response){
+        //前端通过http状态判断
+        response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        return new ResultBean<String>();
+    }
+
+    /**
+     * 未登录
+     * */
+    @RequestMapping(value = "/403", method = RequestMethod.GET)
+    @ResponseBody
+    public IResult needLogin(HttpServletResponse response){
+        response.setStatus(HttpStatus.FORBIDDEN.value());
+        return new ResultBean<String>();
+    }
 }
