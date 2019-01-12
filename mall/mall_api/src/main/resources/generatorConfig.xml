@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">  
+<generatorConfiguration>  
+    <!-- 数据库驱动包位置 -->  
+    <!-- 由于在pom.xml中加入插件时已经配置数据库驱动包，所以此处不必配置了-->
+    <!-- <classPathEntry location="D:\generator\mysql-connector-java-5.1.34.jar" /> -->    
+    <!--<classPathEntry location="E:\Database\Oracle\jdbc\lib\ojdbc14.jar" />-->
+    <context id="DB2Tables" targetRuntime="MyBatis3">  
+        <commentGenerator>  
+            <property name="suppressAllComments" value="true" />  
+        </commentGenerator>  
+        <!-- 数据库链接URL、用户名、密码 -->  
+         <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/mall?characterEncoding=utf8" userId="root" password="root"> 
+        </jdbcConnection>  
+        <javaTypeResolver>  
+            <property name="forceBigDecimals" value="false" />  
+        </javaTypeResolver>  
+        <!-- 生成模型的包名和位置 -->  
+        <javaModelGenerator targetPackage="com.yst.mall.model" targetProject="src/main/java">  
+            <property name="enableSubPackages" value="true" />  
+            <property name="trimStrings" value="true" />  
+        </javaModelGenerator>  
+        <!-- 生成的映射文件包名和位置 -->  
+        <sqlMapGenerator targetPackage="com.yst.mall.mapping" targetProject="src/main/java">  
+            <property name="enableSubPackages" value="true" />  
+        </sqlMapGenerator>  
+        <!-- 生成DAO的包名和位置 -->  
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.yst.mall.dao" targetProject="src/main/java">  
+            <property name="enableSubPackages" value="true" />  
+        </javaClientGenerator>  
+        <!-- 要生成那些表(更改tableName和domainObjectName就可以) -->  
+        <!-- <table tableName="goods_category" domainObjectName="GoodsCategory" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true" /> -->
+        <!-- <table tableName="sys_user" domainObjectName="SysUser" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true" /> -->
+        <!--<table tableName="sys_role" domainObjectName="SysRole" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true" />
+        <table tableName="sys_menu" domainObjectName="SysMenu" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true" />
+        <table tableName="sys_menu_role" domainObjectName="SysMenuRole" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true" />
+        <table tableName="sys_user_role" domainObjectName="SysUserRole" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true" /> -->
+        <table tableName="sys_access_permission" domainObjectName="SysAccessPermission" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true" /> 
+    </context>  
+</generatorConfiguration>
